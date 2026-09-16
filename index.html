@@ -1,5 +1,4 @@
- ```html
-<title>For Sarah 🤍</title>
+ <title>For Sarah 🤍</title>
 
 <style>
     * {
@@ -21,24 +20,25 @@
         font-family: Arial, Helvetica, sans-serif;
     }
 
+
     /* =========================================
-       START SCREEN
+       CINEMATIC SPACE OPENING
     ========================================== */
 
     .start-screen {
         position: fixed;
         inset: 0;
         z-index: 100;
-
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-
-        background: #fdc1c5;
-
-        transition:
-            opacity 1s ease,
-            visibility 1s ease;
+        overflow: hidden;
+        color: #f8f5f2;
+        background:
+            radial-gradient(circle at 50% 50%, rgba(85,55,82,.10), transparent 45%),
+            #020307;
+        transition: opacity 1s ease, visibility 1s ease;
     }
 
     .start-screen.hide {
@@ -46,40 +46,255 @@
         visibility: hidden;
     }
 
-    .start-button {
-        padding: 17px 40px;
+    .start-stars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image:
+            radial-gradient(circle, rgba(255,255,255,.85) 0 1px, transparent 1.5px),
+            radial-gradient(circle, rgba(255,255,255,.55) 0 1px, transparent 1.5px),
+            radial-gradient(circle, rgba(255,255,255,.35) 0 1px, transparent 1.5px);
+        background-size: 145px 175px, 230px 270px, 320px 360px;
+        background-position: 10px 20px, 80px 120px, 160px 40px;
+        animation: startStarDrift 30s linear infinite;
+        opacity: .8;
+    }
 
-        border: 2px solid #000;
-        border-radius: 50px;
+    .start-stars::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+            radial-gradient(circle at 25% 30%, rgba(115,74,112,.18), transparent 30%),
+            radial-gradient(circle at 80% 75%, rgba(55,76,120,.18), transparent 32%);
+        filter: blur(40px);
+    }
 
-        background: #000;
-        color: #fff;
+    .start-nebula {
+        position: absolute;
+        width: 70vw;
+        height: 70vw;
+        max-width: 850px;
+        max-height: 850px;
+        border-radius: 50%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+            circle,
+            rgba(110,75,110,.12) 0%,
+            rgba(61,72,112,.07) 30%,
+            transparent 68%
+        );
+        filter: blur(25px);
+        pointer-events: none;
+        animation: startNebula 16s ease-in-out infinite alternate;
+    }
 
-        font-size: 17px;
-        font-weight: 600;
+    .start-vignette {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        box-shadow:
+            inset 0 0 180px #000,
+            inset 0 0 65px rgba(0,0,0,.75);
+    }
 
+    .start-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .start-eyebrow {
+        margin-bottom: 24px;
+        color: rgba(248,245,242,.58);
+        font-size: 10px;
+        letter-spacing: .42em;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: startUp 1.3s .3s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .start-heading {
+        color: #f8f5f2;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(50px, 8vw, 105px);
+        font-weight: 300;
+        line-height: .82;
+        letter-spacing: -.04em;
+        text-shadow: 0 5px 40px rgba(0,0,0,.55);
+        opacity: 0;
+        transform: translateY(35px);
+        animation: startUp 1.5s .55s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .gift-button {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin-top: 42px;
+        border: 0;
+        background: none;
         cursor: pointer;
-
-        transition: all 0.35s ease;
-
-        box-shadow:
-            0 12px 35px rgba(0, 0, 0, 0.15);
+        opacity: 0;
+        animation: startFade 1.4s 1.1s forwards;
+        transition: transform .5s cubic-bezier(.22,1,.36,1);
+        -webkit-tap-highlight-color: transparent;
     }
 
-    .start-button:hover {
-        background: #fff;
-        color: #000;
-
-        transform: translateY(-4px);
-
-        box-shadow:
-            0 18px 40px rgba(0, 0, 0, 0.18);
+    .gift-button:hover {
+        transform: translateY(-7px) scale(1.04);
     }
 
-    .start-button:active {
-        transform: scale(0.94);
+    .gift-button:focus-visible {
+        outline: 1px solid rgba(255,255,255,.7);
+        outline-offset: 10px;
+        border-radius: 50%;
     }
 
+    .gift {
+        position: absolute;
+        left: 50%;
+        top: 54%;
+        width: 82px;
+        height: 68px;
+        transform: translate(-50%,-50%);
+        filter: drop-shadow(0 18px 25px rgba(0,0,0,.5));
+    }
+
+    .gift-body {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 82px;
+        height: 56px;
+        border-radius: 4px 4px 7px 7px;
+        background: linear-gradient(135deg,#9b5667,#5e2636);
+        box-shadow: inset 0 0 18px rgba(255,255,255,.1);
+    }
+
+    .gift-body:after {
+        content: "";
+        position: absolute;
+        left: 35px;
+        top: 0;
+        width: 12px;
+        height: 100%;
+        background: linear-gradient(90deg,#e6b2ae,#a96370,#e6b2ae);
+    }
+
+    .gift-lid {
+        position: absolute;
+        left: -5px;
+        top: 0;
+        width: 92px;
+        height: 22px;
+        border-radius: 4px;
+        background: linear-gradient(135deg,#b76a7b,#713342);
+        z-index: 2;
+    }
+
+    .gift-lid:after {
+        content: "";
+        position: absolute;
+        left: 40px;
+        top: 0;
+        width: 12px;
+        height: 22px;
+        background: #e5b0ac;
+    }
+
+    .ribbon-v {
+        position: absolute;
+        left: 35px;
+        top: -9px;
+        width: 12px;
+        height: 9px;
+        background: #e5b0ac;
+    }
+
+    .bow-left,
+    .bow-right {
+        position: absolute;
+        top: -19px;
+        width: 32px;
+        height: 20px;
+        border: 5px solid #e5b0ac;
+    }
+
+    .bow-left {
+        left: 18px;
+        border-radius: 100% 15% 80% 20%;
+        transform: rotate(18deg);
+    }
+
+    .bow-right {
+        right: 18px;
+        border-radius: 15% 100% 20% 80%;
+        transform: rotate(-18deg);
+    }
+
+    .gift-button.open .gift-lid {
+        animation: giftLidOpen 1.1s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .gift-button.open .bow-left {
+        animation: giftBowLeft 1.1s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    .gift-button.open .bow-right {
+        animation: giftBowRight 1.1s cubic-bezier(.22,1,.36,1) forwards;
+    }
+
+    @keyframes giftLidOpen {
+        to {
+            transform: translateY(-42px) rotate(-10deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes giftBowLeft {
+        to {
+            transform: translate(-28px,-30px) rotate(-25deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes giftBowRight {
+        to {
+            transform: translate(28px,-30px) rotate(25deg);
+            opacity: 0;
+        }
+    }
+
+    @keyframes startUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes startFade {
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes startStarDrift {
+        to {
+            background-position: 170px 200px, 20px 70px, 280px 180px;
+        }
+    }
+
+    @keyframes startNebula {
+        to {
+            transform: translate(-50%,-50%) scale(1.12);
+        }
+    }
 
     /* =========================================
        BIRTHDAY SCREEN
@@ -663,6 +878,11 @@
 
     @media (max-width: 600px) {
 
+        .gift-button {
+            width: 130px;
+            height: 130px;
+        }
+
         .message-screen {
             padding: 25px 20px;
         }
@@ -687,14 +907,41 @@
 
 
 <!-- =========================================
-     START
+     CINEMATIC SPACE START
 ========================================== -->
 
 <div class="start-screen" id="startScreen">
 
-    <button class="start-button" id="startButton">
-        Click here
-    </button>
+    <div class="start-stars"></div>
+    <div class="start-nebula"></div>
+
+    <div class="start-content">
+
+        <div class="start-eyebrow">
+            A little something for you
+        </div>
+
+        <h1 class="start-heading">
+            Tonight, the stars<br>are for you.
+        </h1>
+
+        <button
+            class="gift-button"
+            id="startButton"
+            aria-label="Open gift"
+        >
+            <div class="gift">
+                <div class="bow-left"></div>
+                <div class="bow-right"></div>
+                <div class="ribbon-v"></div>
+                <div class="gift-lid"></div>
+                <div class="gift-body"></div>
+            </div>
+        </button>
+
+    </div>
+
+    <div class="start-vignette"></div>
 
 </div>
 
@@ -728,7 +975,11 @@
         <!-- FIRST TEXT -->
 
         <p class="message-one" id="messageOne">
-            i wish u in this year a lot of happiness and success , money and good ppl around uu , ppl who knows how much worthy u'r and ofc money so u'll be rich and maybe take me out of this country
+            Happy birthday to the most special person in my life ❤️
+
+I hope you know how much you mean to me and how grateful I am to have you by my side. You’ve brought so many beautiful moments into my life, and honestly, having you in it is something I’ll always be thankful for.
+
+I hope this year brings you everything you deserve — happiness, peace, success, and so many reasons to smile. I’ll always be here to support you, make you laugh, annoy you a little, and love you through everything.
         </p>
 
 
@@ -761,8 +1012,7 @@
 <div class="final-screen" id="finalScreen">
 
     <div class="final-message">
-        im happy to have someone like u in my life
-        <span class="heart">❤️</span>
+        Happy birthday, Sarah ❤️ I’m really happy to have someone like you in my life, and I hope we get to make many more memories together. You deserve the world.
     </div>
 
 </div>
@@ -822,17 +1072,18 @@
 
         started = true;
 
-        startScreen.classList.add("hide");
-
+        /* Open the gift first. */
+        startButton.classList.add("open");
 
         setTimeout(() => {
+            startScreen.classList.add("hide");
+        }, 1050);
 
+        /* Original birthday timing starts after the gift transition. */
+        setTimeout(() => {
             birthdayScreen.classList.add("show");
-
             startConfetti();
-
-        }, 500);
-
+        }, 1550);
 
         /*
          * Birthday celebration = 10 seconds.
@@ -841,9 +1092,7 @@
         setTimeout(() => {
 
             stopConfetti();
-
             birthdayScreen.classList.remove("show");
-
 
             /*
              * Show the message screen.
@@ -852,7 +1101,6 @@
             setTimeout(() => {
 
                 messageScreen.classList.add("show");
-
 
                 /*
                  * STEP 1:
@@ -875,7 +1123,6 @@
 
                         messageOne.classList.add("move-up");
 
-
                         /*
                          * Wait for the entire
                          * upward movement to finish.
@@ -889,7 +1136,6 @@
                              */
 
                             messageTwo.classList.add("show");
-
 
                             /*
                              * Wait until the second
@@ -1075,4 +1321,3 @@
     }
 
 </script>
-```
