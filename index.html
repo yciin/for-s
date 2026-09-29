@@ -627,6 +627,23 @@
             finalMessageAppear 1.8s ease forwards;
     }
 
+    .final-message-two {
+        position: absolute;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(60px) scale(0.9) rotate(-1deg);
+        animation: none;
+    }
+
+    .final-message-two.show {
+        visibility: visible;
+        animation: handwrittenFinalAppear 1.8s ease forwards;
+    }
+
+    .final-message.hide-after-delay {
+        animation: finalMessageFadeOut 1.2s ease forwards;
+    }
+
     .heart {
         display: inline-block;
 
@@ -828,6 +845,30 @@
         }
     }
 
+    @keyframes finalMessageFadeOut {
+        from {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-25px) scale(0.98);
+        }
+    }
+
+    @keyframes handwrittenFinalAppear {
+        0% {
+            opacity: 0;
+            transform: translateY(45px) scale(0.96) rotate(-3deg);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1) rotate(-1deg);
+        }
+    }
+
     @keyframes heartbeat {
 
         0%,
@@ -1015,6 +1056,10 @@ I hope this year brings you everything you deserve — happiness, peace, success
         Happy birthday, Sarah ❤️ I’m really happy to have someone like you in my life, and I hope we get to make many more memories together. You deserve the world.
     </div>
 
+    <div class="final-message final-message-two" id="finalMessageTwo">
+        As you grow, so does my love for you. I love you ❤️
+    </div>
+
 </div>
 
 
@@ -1043,6 +1088,12 @@ I hope this year brings you everything you deserve — happiness, peace, success
 
     const finalScreen =
         document.getElementById("finalScreen");
+
+    const finalMessage =
+        document.querySelector(".final-message");
+
+    const finalMessageTwo =
+        document.getElementById("finalMessageTwo");
 
 
     const birthdayEmojis = [
@@ -1259,6 +1310,17 @@ I hope this year brings you everything you deserve — happiness, peace, success
             finalScreen.classList.add("show");
 
             startFinalParticles();
+
+            /* Keep the existing final message visible for exactly 8 seconds. */
+            setTimeout(() => {
+                finalMessage.classList.add("hide-after-delay");
+
+                /* Reveal the new handwritten ending after the old message fades out. */
+                setTimeout(() => {
+                    finalMessageTwo.classList.add("show");
+                }, 1200);
+
+            }, 8000);
 
         }, 700);
 
